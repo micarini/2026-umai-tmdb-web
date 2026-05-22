@@ -6,15 +6,22 @@ import { tmdbApi, tmdbEndpoints } from "../utils/api";
 
 export default async function Home() {
   const featuredMovieId = 1891;
-  const featuredResponse = await tmdbApi.get(tmdbEndpoints.movieDetail(featuredMovieId));
-  const featuredMovie = featuredResponse.data || null;
-
   let trailerKey = null;
+  let featuredMovie = null;
 
-  if (featuredMovie?.id) {
-    const videosResponse = await tmdbApi.get(tmdbEndpoints.movieVideos(featuredMovie.id));
-    const trailer = videosResponse.data?.results?.find((video) => video.site === "YouTube" && video.type === "Trailer");
-    trailerKey = trailer?.key || null;
+  try {
+    const featuredResponse = await tmdbApi.get(tmdbEndpoints.movieDetail(featuredMovieId));
+    featuredMovie = featuredResponse.data || null;
+
+    if (featuredMovie?.id) {
+      const videosResponse = await tmdbApi.get(tmdbEndpoints.movieVideos(featuredMovie.id));
+      const trailer = videosResponse.data?.results?.find(
+        (video) => video.site === "YouTube" && video.type === "Trailer"
+      );
+      trailerKey = trailer?.key || null;
+    }
+  } catch (error) {
+    console.warn("Unable to load featured movie hero data", error);
   }
 
   return (

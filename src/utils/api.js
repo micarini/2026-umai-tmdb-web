@@ -27,6 +27,11 @@ export const tmdbEndpoints = {
 	tvShowDetail: (id) => withApiKey(`/tv/${id}`),
 };
 
+export const getMovieRuntime = async (movieId) => {
+	const response = await tmdbApi.get(tmdbEndpoints.movieDetail(movieId));
+	return response.data?.runtime || null;
+};
+
 export const getTmdbImageUrl = (path) => {
 	if (!path) {
 		return null;

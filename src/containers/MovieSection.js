@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from "react";
 import { tmdbApi } from "../utils/api";
 import MovieCard from "../components/MovieCard";
 
-export default function MovieSection({ title, endpoint, limit = 10 }) {
+export default function MovieSection({ title, endpoint, limit = 20, id }) {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,11 +33,11 @@ export default function MovieSection({ title, endpoint, limit = 10 }) {
   }, [endpoint]);
 
   return (
-    <section className="my-6">
+    <section id={id} className="my-6 scroll-mt-28">
       <h2 className="mb-3 text-lg font-semibold">{title}</h2>
 
-      {loading && <p>Cargando películas...</p>}
-      {error && <p>No se pudieron cargar los datos.</p>}
+      {loading && <p>Loading movies...</p>}
+      {error && <p>Error loading movies.</p>}
 
       {!loading && !error && (
         <div className="flex gap-4 overflow-x-auto">

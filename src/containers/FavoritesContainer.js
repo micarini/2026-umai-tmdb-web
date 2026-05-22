@@ -9,12 +9,12 @@ const FavoritesContainer = () => {
   const [clientFavorites, setClientFavorites] = useState(null);
 
   useEffect(() => {
-    // set local copy only on client after mount to avoid hydration mismatch
+    // sincronizo el estado local clientFavorites con el estado global favorites del contexto, cada vez que favorites cambie, se ejecutará este efecto y actualizará clientFavorites con el nuevo valor de favorites, esto asegura que la lista de favoritos mostrada en este componente esté siempre actualizada con los cambios realizados en el contexto
     setClientFavorites(favorites);
   }, [favorites]);
 
   return (
-    <section className="p-4">
+    <section id="favorites" className="p-4">
       <h2 className="mb-4 text-xl font-bold">Favorites</h2>
 
       {clientFavorites === null ? (

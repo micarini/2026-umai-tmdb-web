@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 export const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+export const TMDB_BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w1280";
 
 export const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
@@ -22,6 +23,7 @@ export const tmdbEndpoints = {
 	nowPlayingMovies: withApiKey("/movie/now_playing"),
 	upcomingMovies: withApiKey("/movie/upcoming"),
 	movieDetail: (id) => withApiKey(`/movie/${id}`),
+	movieVideos: (id) => withApiKey(`/movie/${id}/videos`),
 	popularTvShows: withApiKey("/tv/popular"),
 	topRatedTvShows: withApiKey("/tv/top_rated"),
 	tvShowDetail: (id) => withApiKey(`/tv/${id}`),
@@ -38,4 +40,12 @@ export const getTmdbImageUrl = (path) => {
 	}
 
 	return `${TMDB_IMAGE_BASE_URL}${path}`;
+};
+
+export const getTmdbBackdropUrl = (path) => {
+	if (!path) {
+		return null;
+	}
+
+	return `${TMDB_BACKDROP_BASE_URL}${path}`;
 };

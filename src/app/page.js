@@ -20,9 +20,10 @@ export default async function Home() {
   }
 
   return (
-    <main className="space-y-10 p-4 md:p-6">
-      <Navbar />
-      <Hero movie={featuredMovie} trailerKey={trailerKey} />
+    <main className="space-y-10 p-6 md:p-6">
+      <div className="-mx-4 md:-mx-6 -mt-6 md:-mt-6">
+        <Hero movie={featuredMovie} trailerKey={trailerKey} />
+      </div>
       <MovieSection id="trending" title="Trending Movies" endpoint={tmdbEndpoints.trendingMovies} />
       <MovieSection id="popular" title="Popular Movies" endpoint={tmdbEndpoints.popularMovies} />
       <MovieSection title="Top Rated Movies" endpoint={tmdbEndpoints.topRatedMovies} />

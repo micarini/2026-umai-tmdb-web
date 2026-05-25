@@ -1,18 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getTmdbBackdropUrl, getTmdbImageUrl } from "@/utils/api";
+import Navbar from "@/components/Navbar";
 
 export default function Hero({ movie, trailerKey }) {
   const backdropUrl = getTmdbBackdropUrl(movie?.backdrop_path) || getTmdbImageUrl(movie?.poster_path);
-  const title = movie?.title || movie?.name || "Featured title";
-  const overview = movie?.overview || "A featured movie area with backdrop image, call to action, and optional trailer media.";
-  const trailerUrl = trailerKey ? `https://www.youtube.com/watch?v=${trailerKey}` : null;
-  const trailerEmbedUrl = trailerKey ? `https://www.youtube-nocookie.com/embed/${trailerKey}` : null;
+  const title = movie?.title || movie?.name || "Featured title"; // si el objeto movie tiene una propiedad title, la uso como título, si no tiene title pero tiene name, uso name, y si no tiene ninguna de las dos, uso "Featured title" como título por defecto
+  const overview = movie?.overview || "A featured movie area with backdrop image, call to action, and optional trailer media."; // si el objeto movie tiene una propiedad overview, la uso como descripción, y si no tiene overview, uso un texto genérico como descripción por defecto
+  const trailerUrl = trailerKey ? `https://www.youtube.com/watch?v=${trailerKey}` : null; // construyo la URL para el trailer de yt
+  const trailerEmbedUrl = trailerKey ? `https://www.youtube-nocookie.com/embed/${trailerKey}` : null; // construyo la URL para el iframe del trailer, uso youtube-nocookie para mejorar la privacidad
 
   return (
-    <section className="relative overflow-hidden rounded-4xl border border-white/8 bg-zinc-950 text-white shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+    <section className="relative overflow-hidden bg-zinc-950 text-white shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+      <Navbar overlay />
       <div className="absolute inset-0">
-        {backdropUrl ? (
+        {backdropUrl ? ( // si hay una URL de imagen de fondo disponible, muestro la imagen usando el componente Image con la URL del backdrop, y aplico estilos para que la imagen cubra todo el fondo y tenga una opacidad del 45%
           <Image
             src={backdropUrl}
             alt={title}
@@ -26,9 +28,9 @@ export default function Hero({ movie, trailerKey }) {
         <div className="absolute inset-0 bg-linear-to-r from-black via-black/65 to-black/20" />
       </div>
 
-      <div className="relative mx-auto grid min-h-130 max-w-7xl items-end gap-10 px-6 py-8 md:grid-cols-[1.2fr_0.8fr] md:px-10 md:py-12">
-        <div className="max-w-2xl">
-          <p className="mb-4 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs uppercase tracking-[0.35em] text-zinc-300">
+      <div className="relative grid min-h-130 items-end gap-10 px-6 pb-8 pt-28 sm:pt-32 md:grid-cols-[1.2fr_0.8fr] md:px-10 md:pb-12 md:pt-28">
+        <div className="max-w-2xl pt-2 sm:pt-4 md:pt-0">
+          <p className="mb-4 inline-flex text-xs uppercase tracking-[0.35em] text-zinc-300">
             Featured movie
           </p>
           <h1 className="text-4xl font-semibold tracking-tight md:text-6xl">
@@ -41,27 +43,17 @@ export default function Hero({ movie, trailerKey }) {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href={movie?.id ? `/movie/${movie.id}` : "/"}
-              className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-zinc-950 transition-transform hover:scale-[1.02]"
+              className="rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
             >
               View details
             </Link>
-            {trailerUrl && (
-              <a
-                href={trailerUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                Watch trailer
-              </a>
-            )}
           </div>
         </div>
 
-        <div className="rounded-[28px] border border-white/10 bg-black/35 p-4 backdrop-blur-sm">
+        <div>
           <div className="overflow-hidden rounded-[22px] border border-white/10 bg-black/40">
             <div className="aspect-video w-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),rgba(255,255,255,0.02)_60%,transparent_70%)]">
-              {trailerEmbedUrl ? (
+              {trailerEmbedUrl ? ( // si hay una URL de embed para el trailer, muestro un iframe con esa URL, el iframe tiene estilos para que ocupe todo el espacio disponible y tenga un aspecto de video, también tiene atributos para mejorar la experiencia de reproducción y la privacidad, como allow="accelerometer...." para permitir ciertas funcionalidades del video, y allowFullScreen para permitir que el video se reproduzca en pantalla completa
                 <iframe
                   src={trailerEmbedUrl}
                   title={`${title} trailer`}

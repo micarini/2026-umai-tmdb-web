@@ -2,26 +2,21 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MovieSection from "../containers/MovieSection";
 import FavoritesContainer from "../containers/FavoritesContainer";
-import { tmdbEndpoints } from "../utils/api";
-import { getServerMovieDetail, getServerMovieVideos } from "@/utils/serverTmdb";
+import { tmdbApi, tmdbEndpoints } from "../utils/api";
 
 export default async function Home() {
   const featuredMovieId = 1891;
+  const featuredResponse = await tmdbApi.get(tmdbEndpoints.movieDetail(featuredMovieId));
+  const featuredMovie = featuredResponse.data || null;
+
   let trailerKey = null;
-  let featuredMovie = null;
 
-  try {
-    featuredMovie = await getServerMovieDetail(featuredMovieId);
-
-    if (featuredMovie?.id) {
-      const videosResponse = await getServerMovieVideos(featuredMovie.id);
-      const trailer = videosResponse?.results?.find(
-        (video) => video.site === "YouTube" && video.type === "Trailer"
-      );
-      trailerKey = trailer?.key || null;
-    }
-  } catch (error) {
-    console.warn("Unable to load featured movie hero data", error);
+  if (featuredMovie?.id) {
+    const videosResponse = await tmdbApi.get(tmdbEndpoints.movieVideos(featuredMovie.id));
+    const trailer = videosResponse.data?.results?.find(
+      (video) => video.site === "YouTube" && video.type === "Trailer"
+    );
+    trailerKey = trailer?.key || null;
   }
 
   return (

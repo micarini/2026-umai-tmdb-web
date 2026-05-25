@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "TMDB Movie and TV Show Browser",
+  title: "Soli - TMDB Browser",
   description: "A web application to browse movies and TV shows using The Movie Database (TMDB) API.",
   icons: {
     icon: "/soli-n.png",
-    shortcut: "/soli-n.png",
+    shortcut: "/soli-n.png", 
   },
 };
 

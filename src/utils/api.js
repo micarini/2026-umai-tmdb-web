@@ -23,6 +23,8 @@ export const tmdbEndpoints = {
 	nowPlayingMovies: withApiKey("/movie/now_playing"),
 	upcomingMovies: withApiKey("/movie/upcoming"),
 	movieDetail: (id) => withApiKey(`/movie/${id}`),
+	// include images and credits when needed
+	movieDetailWithExtras: (id) => withApiKey(`/movie/${id}?append_to_response=images,credits`),
 	movieVideos: (id) => withApiKey(`/movie/${id}/videos`),
 	popularTvShows: withApiKey("/tv/popular"),
 	topRatedTvShows: withApiKey("/tv/top_rated"),

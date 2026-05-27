@@ -1,16 +1,16 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MovieSection from "../containers/MovieSection";
 import FavoritesContainer from "../containers/FavoritesContainer";
 import { tmdbApi, tmdbEndpoints } from "../utils/api";
 
 export default async function Home() {
-  const featuredMovieId = 1891;
+  const featuredMovieId = 1891; // ID de "The Empire Strikes Back" como película destacada
   const featuredResponse = await tmdbApi.get(tmdbEndpoints.movieDetail(featuredMovieId));
   const featuredMovie = featuredResponse.data || null;
 
   let trailerKey = null;
 
+  // si la película destacada se cargó correctamente, intento cargar su tráiler, esto me permite mostrar un tráiler en el Hero si está disponible, pero si falla la carga del tráiler o no hay un tráiler disponible, simplemente dejo trailerKey como null y el Hero se encargará de mostrar solo la información sin el video
   if (featuredMovie?.id) {
     const videosResponse = await tmdbApi.get(tmdbEndpoints.movieVideos(featuredMovie.id));
     const trailer = videosResponse.data?.results?.find(

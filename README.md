@@ -1,3 +1,16 @@
+# USO DE IA
+
+- **Estructura del proyecto:** se usó al principio para definir una organización clara del proyecto y armar una lista de tareas. 
+- **Consumo de TMDB:** se usó para simplicar los endpoints y hacerlos reutilizables con el fin de evitar repetir URLs en distintos componentes.
+- **Buscador de películas:** se usó para armar el componente `SearchBar`.
+- **App Context:** use lo viste en clase para la sección de favoritos, pero se usó la IA para terminar de hacerlo funcionar y agregar un toggle en las cards.
+- **Interfaz y responsive:** se usó para asistir con tailwind.css y el responsive para mobile.
+- **Corrección de errores:** se usó para detectar y resolver problemas de código y de deployement en vercel, problemas con la API key, etc.
+- **Explicación propia:** se usó para dejar comentarios y aclaraciones para no olvidarme la teoria o lo que esta pasando en el código. 
+
+Todo uso de IA fue hecho con consciencia, leyendo bien los cambios y viendo que pueda entender y comprender que esta haciendo el código en todo momento.
+
+
 # TP3: App de Películas y Series con Next.js y TMDB
 
 ## Objetivo

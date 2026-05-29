@@ -9,11 +9,11 @@ export default function MovieDetailRating({ rating, label = "TMDB" }) {
         className="grid h-24 w-24 place-items-center rounded-full bg-[radial-gradient(circle_at_center,#111_58%,transparent_59%)] shadow-[0_0_0_1px_rgba(255,255,255,0.08)] sm:h-28 sm:w-28"
         style={{
           backgroundImage: `conic-gradient(#facc15 ${percent}%, rgba(255,255,255,0.12) 0)`,
-        }}
+        }} // uso un conic-gradient para crear un círculo de progreso que se llena según el porcentaje calculado a partir del rating, el primer color es el amarillo para la parte llena del círculo, y el segundo color es un blanco semitransparente para la parte vacía, el porcentaje determina dónde termina el primer color y comienza el segundo color, esto crea un efecto visual que representa el rating de manera intuitiva
       >
         <div className="grid h-[4.9rem] w-[4.9rem] place-items-center rounded-full bg-zinc-950/95 text-center sm:h-[5.6rem] sm:w-[5.6rem]">
           <span className="text-2xl font-bold leading-none sm:text-3xl">{displayValue}</span>
-        </div>
+        </div> 
       </div>
 
       <span className="text-[0.65rem] uppercase tracking-[0.3em] text-zinc-300">{label}</span>

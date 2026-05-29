@@ -12,7 +12,6 @@ const navItems = [
 ];
 
 export default function Navbar({ overlay = false }) {
-  // Search is handled by the `SearchBar` component.
 
   return (
     <header

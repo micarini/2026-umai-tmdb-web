@@ -27,7 +27,6 @@ export const AppContextProvider = ({ children }) => {
   const toggleFavorite = (movie) => { 
     setFavorites((currentFavorites) => {
       const exists = hasMovie(currentFavorites, movie.id);  // primero verifico si la movie ya está en favoritos usando la función hasMovie, paso el array actual de favoritos y el id de la movie que quiero agregar o quitar
-      console.debug("AppContext.toggleFavorite", { movieId: movie.id, exists });
 
       if (exists) {
         return currentFavorites.filter((favorite) => favorite.id !== movie.id); // si la movie ya existe en favoritos, devuelvo un nuevo array que contiene todos los favoritos excepto la movie que quiero quitar, uso filter para crear este nuevo array, manteniendo solo aquellos favoritos cuyo id sea diferente al id de la movie que quiero eliminar
@@ -51,20 +50,10 @@ export const AppContextProvider = ({ children }) => {
 
 export const useAppContext = () => {
     const context = useContext(AppContext);
-  if (!context){
-    // Si se usa fuera del provider devolvemos un fallback seguro
-    // para evitar que la app se rompa en runtime. Idealmente esto
-    // no debería suceder: verificar que el Provider envuelva la app.
-    console.warn("useAppContext usado fuera de AppContextProvider - devolviendo fallback");
 
-    return {
-      favorites: [],
-      setFavorites: () => {},
-      favQuantity: () => 0,
-      isFavorite: () => false,
-      toggleFavorite: () => {},
-    };
-  }
+    if (!context){
+        throw new Error("useAppContext solo puede ser usado dentro del provider");
+    }
 
   return context;
 }

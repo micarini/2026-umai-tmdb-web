@@ -15,7 +15,6 @@ export default function MovieCard({ movie }) {
   const handleFavoriteClick = (event) => {
     event.preventDefault(); // Evita que el clic en el botón de favorito navegue al detalle de la película
     event.stopPropagation(); // Evita que el clic se propague al contenedor del enlace, lo que también podría causar navegación
-    console.debug("MovieCard.handleFavoriteClick", { movieId: movie.id });
     toggleFavoriteMovie(movie); // Llama a la función toggleFavorite del contexto para agregar o quitar la película de favoritos
   };
 
